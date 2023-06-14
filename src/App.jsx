@@ -3,12 +3,14 @@ import './App.css'
 import { useForm } from "react-hook-form"
 import Swal from 'sweetalert2'
 import {
-  QueryClient,
-  QueryClientProvider,
-  useQuery,
+  useQuery
 } from '@tanstack/react-query'
 import TaskCard from './Shared/TaskCard'
+
+
 function App() {
+
+
   const {
     register,
     handleSubmit,
@@ -25,7 +27,8 @@ function App() {
     const taskDetails = {
       name,
       title,
-      details
+      details,
+      date: new Date
     }
 
     fetch('http://localhost:5000/add-task', {
@@ -156,69 +159,73 @@ function App() {
 
 
   return (
-    <>
-      <div>
-        <form className=" mb-4" onSubmit={handleSubmit(onSubmit)}>
-          <div className="flex flex-col gap-4">
-            <input
-              type="text"
-              name="name"
-              {...register("name", { required: true, maxLength: 30 })}
+    <div className='p-20'>
+      <div className='border-2 shadow-xl rounded-sm'>
+        <div className='p-10'>
+          <h1 className='text-center font-semibold text-3xl my-10'>Task Management Application</h1>
+       
+          <form className="w-1/2 mx-auto mb-4" onSubmit={handleSubmit(onSubmit)}>
+            <div className="flex flex-col gap-4">
+              <input
+                type="text"
+                name="name"
+                {...register("name", { required: true, maxLength: 30 })}
 
-              className="flex-grow appearance-none border rounded py-2 px-3 mr-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-              placeholder="*Task Name"
-            />
-            {errors.name && errors.name.type === "required" && (
-              <span className='text-sm text-red-600'>Name is required</span>
-            )}
+                className="flex-grow appearance-none border rounded py-2 px-3 mr-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                placeholder="*Task Name"
+              />
+              {errors.name && errors.name.type === "required" && (
+                <span className='text-sm text-red-600'>Name is required</span>
+              )}
 
-            {errors.name && errors.name.type === "maxLength" && (
-              <span className='text-sm text-red-600'>maximum length of 30 letters</span>
-            )}
-
-
-            <input
-              type="text"
-              className="flex-grow appearance-none border rounded py-2 px-3 mr-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-              placeholder="*Task title"
-              name="title"
-              {...register("title", { required: true })}
-            />
-            {errors.title && errors.title.type === "required" && (
-              <span className='text-sm text-red-600'>Title is required</span>
-            )}
-
-            <input
-              type="text"
-              className="flex-grow appearance-none border rounded py-2 px-3 mr-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400"
-              placeholder="*Task Details"
-              name="details"
-              {...register("details", { required: true, maxLength: 150 })}
-
-            />
-            {errors.details && errors.details.type === "required" && (
-              <span className='text-sm text-red-600'>Details is required</span>
-            )}
+              {errors.name && errors.name.type === "maxLength" && (
+                <span className='text-sm text-red-600'>maximum length of 30 letters</span>
+              )}
 
 
-            {errors.details && errors.details.type === "maxLength" && (
-              <span className='text-sm text-red-600'>maximum length of 150 letters</span>
-            )}
+              <input
+                type="text"
+                className="flex-grow appearance-none border rounded py-2 px-3 mr-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                placeholder="*Task title"
+                name="title"
+                {...register("title", { required: true })}
+              />
+              {errors.title && errors.title.type === "required" && (
+                <span className='text-sm text-red-600'>Title is required</span>
+              )}
+
+              <input
+                type="text"
+                className="flex-grow appearance-none border rounded py-2 px-3 mr-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                placeholder="*Task Details"
+                name="details"
+                {...register("details", { required: true, maxLength: 150 })}
+
+              />
+              {errors.details && errors.details.type === "required" && (
+                <span className='text-sm text-red-600'>Details is required</span>
+              )}
 
 
-          </div>
-          <button
-            type="submit"
-            className="bg-yellow-500 m-2 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400"
-          >
-            Submit
-          </button>
-        </form>
+              {errors.details && errors.details.type === "maxLength" && (
+                <span className='text-sm text-red-600'>maximum length of 150 letters</span>
+              )}
+
+
+            </div>
+            <button
+              type="submit"
+              className="bg-yellow-500 mt-4 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            >
+              Submit
+            </button>
+          </form>
+        </div>
 
 
 
 
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto p-10">
           <table className="table w-full">
             <thead>
               {(
@@ -239,7 +246,7 @@ function App() {
           </table>
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
