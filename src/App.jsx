@@ -31,7 +31,7 @@ function App() {
       date: new Date
     }
 
-    fetch('http://localhost:5000/add-task', {
+    fetch('https://task-management-server-steel-one.vercel.app/add-task', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -62,7 +62,7 @@ function App() {
   const { data: tasks = [], refetch } = useQuery({
     queryKey: ['all-task'],
     queryFn: async () => {
-      const res = await fetch('http://localhost:5000/all-task')
+      const res = await fetch('https://task-management-server-steel-one.vercel.app/all-task')
       return res.json()
     }
   })
@@ -86,7 +86,7 @@ function App() {
       confirmButtonText: 'Yes'
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/task-update/${id}`, {
+        fetch(`https://task-management-server-steel-one.vercel.app/task-update/${id}`, {
           method: 'PATCH',
           headers: {
             'content-type': 'application/json'
@@ -128,7 +128,7 @@ function App() {
       confirmButtonText: 'Yes'
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/task-delete/${id}`, {
+        fetch(`https://task-management-server-steel-one.vercel.app/task-delete/${id}`, {
           method: 'DELETE',
           headers: {
             'content-type': 'application/json'
