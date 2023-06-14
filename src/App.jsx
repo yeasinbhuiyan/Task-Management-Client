@@ -135,11 +135,11 @@ function App() {
           .then(res => res.json())
           .then(data => {
             console.log(data)
-            if (data.modifiedCount > 0) {
+            if (data.deletedCount > 0) {
               refetch()
               Swal.fire(
-                'Complete Your Task',
-                'successfully Complete Your Task',
+                'Deleted Your Task',
+                'successfully Deleted Your Task',
                 'success'
               )
             }
