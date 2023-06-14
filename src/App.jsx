@@ -65,6 +65,13 @@ function App() {
   })
   console.log(tasks)
 
+
+
+
+
+
+  // patch method 
+
   const handleComplete = (id) => {
     Swal.fire({
       title: 'Are you sure?',
@@ -101,6 +108,49 @@ function App() {
 
 
   }
+
+
+
+
+  // delete method 
+
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Do You Delete This Task",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:5000/task-delete/${id}`, {
+          method: 'DELETE',
+          headers: {
+            'content-type': 'application/json'
+          },
+
+        })
+          .then(res => res.json())
+          .then(data => {
+            console.log(data)
+            if (data.modifiedCount > 0) {
+              refetch()
+              Swal.fire(
+                'Complete Your Task',
+                'successfully Complete Your Task',
+                'success'
+              )
+            }
+          })
+
+      }
+    })
+
+  }
+
+
 
 
 
@@ -184,7 +234,7 @@ function App() {
             </thead>
             <tbody>
               {
-                tasks && tasks.map((task, i) => <TaskCard key={task._id} handleComplete={handleComplete} task={task} i={i}></TaskCard>)}
+                tasks && tasks.map((task, i) => <TaskCard key={task._id} handleDelete={handleDelete} handleComplete={handleComplete} task={task} i={i}></TaskCard>)}
             </tbody>
           </table>
         </div>
