@@ -162,7 +162,7 @@ function App() {
     <div className='p-20'>
       <div className='border-2 shadow-xl rounded-sm'>
         <div className='p-10'>
-          <h1 className='text-center font-semibold text-3xl my-10'>Task Management Application</h1>
+          <h1 className='text-center font-semibold text-3xl my-10'>Tasks Management Application</h1>
        
           <form className="w-1/2 mx-auto mb-4" onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-4">
